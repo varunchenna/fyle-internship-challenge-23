@@ -1,5 +1,55 @@
 <div class="grid h-screen place-items-center">
-  <div class="font-bold text-3xl">
-    Fyle Internship Challenge
+  <div class="container mt-3">
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        <h4> Github User Search</h4>
+      </div>
+      <form class="form-inline" (submit)="searchUser()">
+        <div class="form-group rr">
+          <input [(ngModel)]="githubUserQuery" name="usrname" type="search" class="form-group" placeholder="Github User">
+          <div class="btn rr">
+            <input type="submit" class="w3-button" value="Search">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="profile">
+      <div class="top">
+        <div class="image">
+          <img [src]=githubprofile.avatar_url alt="">
+        </div>
+        <div class="info">
+          <h2 class="name">{{githubprofile.name}}</h2>
+          <p>{{githubprofile.bio}}</p>
+          <h3 class="email">{{githubprofile.email}}</h3>
+          <h3 class="loc">{{githubprofile.location}}</h3>
+          <h4 class="url">{{githubprofile.url}}</h4>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="card rep" *ngFor="let repo of repos">
+          <h2>{{repo.name}}</h2>
+          <h3>{{repo.description}}</h3>
+          <h4 style="color: blue;">{{repo.url}}</h4>
+        </div>  
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-md-2 d-flex justify-content-center">
+        <div class="form-inline float-left mr-1">
+          <select class="form-control pg" [value]="reposPerPage" (change)="changePerSize($event)">
+          <option value="6">6 per Page</option>
+          <option value="12">12 per Page</option>
+          <option value="18">18 per Page</option>
+          <option value="24">24 per Page</option>
+        </select>
+        </div>
+
+        <div class="btn-group flot-right">
+          <button class="btn2 active" *ngFor="let page of pageNumbers" 
+          (click)="changePage(page)" [class.active]="page == selectedPage" >{{page}}</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
